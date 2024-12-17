@@ -1,4 +1,4 @@
-# 🐾 베스티 튜터 관리자 백엔드 서버 🐾
+# 🐾 BestieTutor Admin Backend Server 🐾
 
 안녕하세요! 베스티 튜터 관리자 백엔드 서버에 오신 것을 환영합니다! 이 서버는 서비스 분석, 회원 관리, 공지사항 및 이벤트 관리 등을 위한 API를 제공합니다.
 
@@ -41,7 +41,7 @@ npm install
 ### 4. 서버 실행
 서버를 실행합니다.
 ```bash
-nodemon` or `node app.js
+nodemon or node app.js
 ```
 
 ## 파일 구조
