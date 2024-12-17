@@ -70,15 +70,9 @@ If you want to get inspiration or just show something directly to your clients, 
 
 ## Quick start
 
-- Clone the repo: `git clone https://github.com/creativetimofficial/argon-dashboard-react.git`.
-- `cd back-end`
 - `npm install`
-- `cd ..`
-- `cd front-end`
-- `npm install`
-- Open 2 terminals
 - in front-end: `npm start` -> react server
-- in back-end: `nodemon` -> backend server
+- in back-end: `nodemon` or `node app.js` -> backend server
 - you also need to have installed Mongo DB and you have to change the db name in /back-end/config/keys.js at "dbPasswordDev"
 - then you need to put your ssl key and cert in the .env
 
