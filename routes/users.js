@@ -1,16 +1,18 @@
 const express = require('express');
 // eslint-disable-next-line new-cap
 const router = express.Router();
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const config = require('../config/keys');
-const User = require('../models/user');
+const User = require('../models/User');
 const ActiveSession = require('../models/activeSession');
 const reqAuth = require('../config/safeRoutes').reqAuth;
 const {smtpConf} = require('../config/config');
 // route /admin/users/
 
+/* 회원 관리 */ 
+// 전체 사용자 조회
 router.post('/all', reqAuth, function(req, res) {
   User.find({}, function(err, users) {
     if (err) {
@@ -26,6 +28,7 @@ router.post('/all', reqAuth, function(req, res) {
   });
 });
 
+// 사용자 정보 수정
 router.post('/edit', reqAuth, function(req, res) {
   const {userID, name, email} = req.body;
 
@@ -46,7 +49,8 @@ router.post('/edit', reqAuth, function(req, res) {
   });
 });
 
-
+/* 비밀번호 관리 */
+// 비밀번호 재설정 요청 확인
 router.post('/check/resetpass/:id', (req, res) => {
   const userID = req.params.id;
   User.find({_id: userID}).then((user) => {
@@ -58,6 +62,7 @@ router.post('/check/resetpass/:id', (req, res) => {
   });
 });
 
+// 비밀번호 초기화 요청
 router.post('/resetpass/:id', (req, res) => {
   const errors = [];
   const userID = req.params.id;
@@ -87,6 +92,7 @@ router.post('/resetpass/:id', (req, res) => {
   }
 });
 
+// 비밀번호 재설정 요청
 router.post('/forgotpassword', (req, res) => {
   const {email} = req.body;
   const errors = [];
@@ -125,6 +131,8 @@ router.post('/forgotpassword', (req, res) => {
   });
 });
 
+/* 회원가입 및 로그인 */
+// 회원가입
 router.post('/register', (req, res) => {
   const {name, email, password} = req.body;
 
@@ -181,6 +189,7 @@ router.post('/confirm/:id', (req, res) => {
   });
 });
 
+// 로그인
 router.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -219,10 +228,13 @@ router.post('/login', (req, res) => {
   });
 });
 
+/* 세션 관리 */
+// 세션 확인
 router.post('/checkSession', reqAuth, function(req, res) {
   res.json({success: true});
 });
 
+// 로그아웃
 router.post('/logout', reqAuth, function(req, res) {
   const token = req.body.token;
   ActiveSession.deleteMany({token: token}, function(err, item) {

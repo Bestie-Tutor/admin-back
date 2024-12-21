@@ -24,15 +24,10 @@ require('./config/passport')(passport);
 // DB Config
 
 // Connect to MongoDB
-mongoose
-    .connect(
-        db, {useNewUrlParser: true,
-          useFindAndModify: false,
-          useUnifiedTopology: true,
-          useCreateIndex: true},
-    )
-    .then(() => console.log('MongoDB Connected'))
-    .catch((err) => console.log(err));
+mongoose.connect('mongodb+srv://BestieTutorDB:bestietutorpw@cluster0.vfykr.mongodb.net/admin-back?retryWrites=true&w=majority'
+)
+.then(() => console.log('MongoDB Connected'))
+.catch((err) => console.log(err));
 
 app.use(cors());
 
