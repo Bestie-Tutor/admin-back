@@ -59,6 +59,6 @@ exports.loginUser = async (email, password) => {
   const token = jwt.sign({ id: user._id }, config.secret, { expiresIn: '1d' });
   await ActiveSession.create({ userId: user._id, token });
 
-  user.password = undefined; // Remove sensitive data
+  user.password = undefined;
   return { success: true, token: `JWT ${token}`, user };
 };
