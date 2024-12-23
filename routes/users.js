@@ -1,7 +1,7 @@
-const express = require('express');
+/* const express = require('express');
 // eslint-disable-next-line new-cap
 const router = express.Router();
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const config = require('../config/keys');
@@ -235,3 +235,4 @@ router.post('/logout', reqAuth, function(req, res) {
 
 
 module.exports = router;
+ */

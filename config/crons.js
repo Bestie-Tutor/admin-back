@@ -1,19 +1,14 @@
-const ActiveSession = require('../models/activeSession');
-const User = require('../models/user');
+const sessionService = require('../services/sessionService');
 
-module.exports = {
-  tokensCleanUp: function() {
-    const date = new Date();
-    const daysToDelete = 1;
-    const deletionDate = new Date(date.setDate(date.getDate() - daysToDelete));
-    ActiveSession.deleteMany({date: {$lt: deletionDate}}, function(err, item) {
-      return;
-    });
-
-    User.deleteMany({email: {$ne: 'test@test.com'}}, function(err, item) {
-      return;
-    });
-  },
+const tokensCleanUp = async () => {
+  try {
+    await sessionService.cleanUpSessions();
+    console.log('Old sessions cleaned up successfully');
+  } catch (err) {
+    console.error('Error cleaning up sessions:', err.message);
+  }
 };
 
-
+module.exports = {
+  tokensCleanUp,
+};

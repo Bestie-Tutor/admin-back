@@ -1,23 +1,27 @@
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const User = require('../models/user');
-const config = require('./keys');
+const passport = require('passport');
+const { Strategy, ExtractJwt } = require('passport-jwt');
+const User = require('../models/user'); 
+const dotenv = require('dotenv');
 
-module.exports = function(passport) {
-  const opts = {};
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
-  opts.secretOrKey = config.secret;
+// 환경 변수 로드
+dotenv.config();
 
-  passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
-    User.findById(jwtPayload._doc._id, (err, user) => {
-      if (err) {
-        return done(err, false);
-      }
-      if (user) {
-        return done(null, user);
-      } else {
+const opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken(); // 수정된 부분
+opts.secretOrKey = process.env.JWT_SECRET;
+
+module.exports = () => {
+  passport.use(
+    new Strategy(opts, async (jwt_payload, done) => {
+      try {
+        const user = await User.findById(jwt_payload.id);
+        if (user) {
+          return done(null, user);
+        }
         return done(null, false);
+      } catch (error) {
+        return done(error, false);
       }
-    });
-  }));
+    })
+  );
 };
