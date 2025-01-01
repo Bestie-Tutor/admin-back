@@ -8,6 +8,8 @@ require("dotenv").config();
 
 const userRoutes = require("./routes/userRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
+const noticeRoutes = require("./routes/noticeRoutes");
+const inquiryRoutes = require("./routes/inquiryRoutes");
 
 const app = express();
 
@@ -27,5 +29,7 @@ const sessionCleanupJob = new CronJob("10 3 * * *", () => {
 });
 sessionCleanupJob.start();
 
-app.use("/api/users", userRoutes);
-app.use("/api/users", sessionRoutes);
+app.use("/admin/users", userRoutes);
+app.use("/admin/users", sessionRoutes);
+app.use("/admin/notices", noticeRoutes);
+app.use("/admin/inquiries", inquiryRoutes);
