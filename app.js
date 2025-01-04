@@ -8,6 +8,7 @@ require("dotenv").config();
 
 const userRoutes = require("./routes/userRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
+const topicRoutes = require("./routes/topicRoutes");
 const noticeRoutes = require("./routes/noticeRoutes");
 const inquiryRoutes = require("./routes/inquiryRoutes");
 
@@ -30,6 +31,7 @@ const sessionCleanupJob = new CronJob("10 3 * * *", () => {
 sessionCleanupJob.start();
 
 app.use("/admin/users", userRoutes);
-app.use("/admin/users", sessionRoutes);
+app.use("/admin/auth", sessionRoutes);
+app.use("/admin/topics", topicRoutes);
 app.use("/admin/notices", noticeRoutes);
 app.use("/admin/inquiries", inquiryRoutes);

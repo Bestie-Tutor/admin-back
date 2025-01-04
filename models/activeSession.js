@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const activeSessionSchema = new mongoose.Schema({
   token: {
@@ -16,6 +16,6 @@ const activeSessionSchema = new mongoose.Schema({
   },
 });
 
-const activeSeesion = mongoose.model('ActiveSession', activeSessionSchema);
+const ActiveSession = mongoose.model("ActiveSession", activeSessionSchema);
 
-module.exports = activeSeesion;
+module.exports = ActiveSession;
